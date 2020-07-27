@@ -1,9 +1,3 @@
 /node_modules
-/bin
-/pkg
-/src
-/server/bindata.go
-/server/data/static/build
-
 .pid
 .DS_Store
