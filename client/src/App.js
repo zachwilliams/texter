@@ -1,26 +1,69 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Box, Button, Heading, Grommet } from "grommet";
+import { Notification } from "grommet-icons";
+import TextFeed from './components/TextFeed.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const AppBar = (props) => (
+  <Box
+    tag="header"
+    direction="row"
+    align="center"
+    justify="between"
+    background="brand"
+    pad={{ left: "medium", right: "small", vertical: "small" }}
+    elevation="medium"
+    style={{ zIndex: "1" }}
+    {...props}
+  />
+);
+
+const theme = {
+  global: {
+    colors: {
+      brand: "#02b525",
+    },
+    font: {
+      family: "Roboto",
+      size: "18px",
+      height: "20px",
+    },
+  },
+};
+
+class App extends Component {
+  render() {
+    return (
+      <Grommet theme={theme}>
+        <Box fill>
+          <AppBar>
+            <Heading level="3" margin="none">
+              Texter
+            </Heading>
+            <Button icon={<Notification />} onClick={() => {}} />
+          </AppBar>
+          <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
+            <Box
+              width="medium"
+              background="light-2"
+              elevation="small"
+              align="center"
+              justify="left"
+            >
+              sidebar<br />
+              sidebar<br />
+              sidebar<br />
+              sidebar<br />
+
+
+            </Box>
+            <Box flex align="center" justify="center">
+              <TextFeed />
+            </Box>
+          </Box>
+        </Box>
+      </Grommet>
+    );
+  }
 }
 
 export default App;

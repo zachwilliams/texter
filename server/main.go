@@ -12,14 +12,14 @@ func main() {
 	router := gin.Default()
 
 	// Serve frontend static files
-	router.Use(static.Serve("/", static.LocalFile("./client/build", true)))
+	router.Use(static.Serve("/", static.LocalFile("../client/build", true)))
 
 	// Setup route group for the API
 	api := router.Group("/api")
 	{
 		api.GET("/", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
-				"message": "pong",
+				"message": "healthy",
 			})
 		})
 	}
