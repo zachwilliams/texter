@@ -58,6 +58,7 @@ class App extends Component {
             </Box>
             <Box flex align="center" justify="center">
               <TextFeed />
+              <p>sadfjkhasdkjjfh kasdjhf kadsjfh kjsadhfjksdhf</p>
             </Box>
           </Box>
         </Box>

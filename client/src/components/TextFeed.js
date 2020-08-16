@@ -32,7 +32,7 @@ class TextFeed extends Component {
         bubbleStyles={
           {
             text: {
-              fontSize: 30
+              fontSize: 18
             },
             chatbubble: {
               borderRadius: 70,
