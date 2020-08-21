@@ -12,6 +12,7 @@ func main() {
 	router := gin.Default()
 
 	// Serve frontend static files
+	// (to run not in docker set path to )
 	router.Use(static.Serve("/", static.LocalFile("./client/build", true)))
 
 	// Setup route group for the API
