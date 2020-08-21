@@ -17,7 +17,7 @@ docker build . -t texter-image
 ```
 - run container
 ```bash
-docker run -p 5000:5000 texter-image
+docker run -it -p 5000:5000 texter-image
 ```
 - point browser to `localhost:5000`
 
@@ -46,4 +46,4 @@ curl localhost:5000/api
 
 # CI/CD
 - github
-- semephore
+- github actions
