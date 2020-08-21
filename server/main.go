@@ -28,3 +28,7 @@ func main() {
 	// Start and run the server
 	router.Run(":5000")
 }
+
+func testable(a int) int {
+	return a
+}
