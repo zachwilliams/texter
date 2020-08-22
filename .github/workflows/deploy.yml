@@ -17,13 +17,12 @@ jobs:
             - name: "Yarn Install"
               uses: borales/actions-yarn@v2.0.0
               with:
-                cmd: install 
-                # cmd: install --cwd ./client
+                cmd: --cwd ./client install 
 
-            - name: "Yarn Build"
+            - name: "Client Build"
               uses: borales/actions-yarn@v2.0.0
               with:
-                cmd: build --cwd ./client
+                cmd: --cwd ./client run build
             
             - name: "Build Image"
               run: docker build . --tag texter-image
