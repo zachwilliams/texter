@@ -8,14 +8,19 @@ jobs:
     go_test_pull_request:
         runs-on: ubuntu-latest
         steps: 
-            - uses: actions/setup-go@v2
+            - name: set up go
+              uses: actions/setup-go@v2
               with:
                 go-version: '^1.13.1'
-            - uses: actions/checkout@v2
-              with:
-                ref: B8
-                path: src/github.com/${{ github.repository }}
-            - run: go test ./...
+
+            - name: checkout 
+              uses: actions/checkout@v2
+
+            - name: install go deps
+              run: go get -v -u github.com/${GITHUB_REPOSITORY}
+
+            - name: go test
+              run: go test ./...
 
     # TODO add job for client tests
     # yarn test
