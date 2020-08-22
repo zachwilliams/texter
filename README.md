@@ -6,7 +6,9 @@
 - get npm/yarn
 - build frontend:
 ```bash
-yarn --cwd ./client build  
+
+yarn --cwd ./client install
+yarn --cwd ./client run build  
 ```
 
 ## In Docker
