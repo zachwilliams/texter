@@ -1,0 +1,18 @@
+# git action to run (go) tests on PR
+
+on:
+    pull_request:
+        branches: [ master ]
+    
+jobs:
+    go_test_pull_request:
+        runs-on: ubuntu-latest
+        steps: 
+            - uses: actions/checkout@v2
+            - uses: actions/setup-go@v2
+              with:
+                go-version: '^1.13.1'
+            - run: go test ./server
+
+    # TODO add job for client tests
+    # yarn test
