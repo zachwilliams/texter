@@ -23,7 +23,7 @@ jobs:
                 aws-region: us-west-1
       
             - name: Login to Amazon ECR
-              id: texter-cicd
+              id: login-ecr
               uses: aws-actions/amazon-ecr-login@v1
 
             - name: Frontend Deps (Yarn Install)
