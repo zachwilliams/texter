@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Box, Button, Heading, Grommet } from "grommet";
 import { Notification } from "grommet-icons";
-import TextFeed from './components/TextFeed.js'
 
 const AppBar = (props) => (
   <Box
