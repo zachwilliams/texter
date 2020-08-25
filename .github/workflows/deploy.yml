@@ -59,6 +59,6 @@ jobs:
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:
                 task-definition: ${{ steps.task-def.outputs.task-definition }}
-                service: sample-app-service
-                cluster: texter-cluster
+                service: texter-container-service
+                cluster: texter-cluster-prod
                 wait-for-service-stability: true
