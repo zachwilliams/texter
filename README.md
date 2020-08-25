@@ -47,5 +47,10 @@ curl localhost:5000/api
 ```
 
 # CI/CD
-- github
-- github actions
+there are currently only 2 environments (local and prod) and we are using git hub actions for all CI/CD
+- configured in `.github/workflows/*`
+- `integrate.yml` to run tests on PR to master
+- `deploy.yml` to create docker image and deploy to ECS cluster behind ELB
+
+(definitnely some room for improvement here)
+

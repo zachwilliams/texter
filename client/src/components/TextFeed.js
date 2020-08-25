@@ -1,3 +1,7 @@
+//
+// NOT CURRENTLY USED, trying to learn react and such
+//
+
 import React, { Component } from 'react';
 import { ChatFeed, Message } from 'react-chat-ui'
 

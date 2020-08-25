@@ -53,12 +53,8 @@ class App extends Component {
               sidebar<br />
               sidebar<br />
               sidebar<br />
-
-
             </Box>
             <Box flex align="center" justify="center">
-              <TextFeed />
-              <p>sadfjkhasdkjjfh kasdjhf kadsjfh kjsadhfjksdhf</p>
             </Box>
           </Box>
         </Box>
