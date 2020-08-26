@@ -46,11 +46,15 @@ call local server
 curl localhost:5000/api
 ```
 
-# CI/CD
-there are currently only 2 environments (local and prod) and we are using git hub actions for all CI/CD
+
+# Prod
+A few notes about the "prod" environment:
+- currently on my personal aws account
+- SSL/TLS is handled at the ELB level
+- only other environemnt is local dev
+- github actions used for CI/CD and such
+
+## CI/CD
 - configured in `.github/workflows/*`
-- `integrate.yml` to run tests on PR to master
+- `integrate.yml` to run tests on PR to master (currently just golang tests)
 - `deploy.yml` to create docker image and deploy to ECS cluster behind ELB
-
-(definitnely some room for improvement here)
-
