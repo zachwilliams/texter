@@ -19,11 +19,15 @@ func main() {
 	{
 		api.GET("/", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
-				"message": "pong",
+				"message": "healthy",
 			})
 		})
 	}
 
 	// Start and run the server
-	router.Run(":5000")
+	router.Run(":80")
+}
+
+func testable(a int) int {
+	return a
 }
