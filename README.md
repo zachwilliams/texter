@@ -49,6 +49,7 @@ curl localhost:5000/api
 
 # Prod
 A few notes about the "prod" environment:
+currently at zactang.com
 - currently on my personal aws account
 - SSL/TLS is handled at the ELB level
 - only other environemnt is local dev
@@ -58,3 +59,4 @@ A few notes about the "prod" environment:
 - configured in `.github/workflows/*`
 - `integrate.yml` to run tests on PR to master (currently just golang tests)
 - `deploy.yml` to create docker image and deploy to ECS cluster behind ELB
+
