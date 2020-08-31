@@ -19,7 +19,7 @@ docker build . -t texter-image
 ```
 - run container
 ```bash
-docker run -it -p 5000:5000 texter-image
+docker run -it -p 5000:80 texter-image
 ```
 - point browser to `localhost:5000`
 
