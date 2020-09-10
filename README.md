@@ -27,8 +27,12 @@ psql -h localhost -p 5432 -U postgres -W
 ```
 CREATE DATABASE texter;
 ```
+- Some other basic postgres command:
+  - `\l` to show all databases
+  - `\c texter` to connect to texter db
+  - `\dt` to show all tables
 
-- if you want to run the server directly on your machine you will need to set local environment variables the app pulls db connection info from
+- if you want to run the server directly on your machine you will need to set local environment variables the app pulls db connection info from. NOTE: These values will be set as defaults in the docker file and will be pulled from github secrets for prod
 ```
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=pwdtime123
@@ -42,7 +46,7 @@ go run scripts/migrate_db/migrate_db.go init
 ```
 - run all *.up.sql migrations in the scripts/migrate_db directory
 ```
-go run scripts/migrate_db/migrate_db.go init
+go run scripts/migrate_db/migrate_db.go up
 ```
 
 To create a new migration create a new sql file in scripts/migrate_db
