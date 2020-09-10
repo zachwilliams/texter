@@ -1,14 +1,28 @@
 
 
 # Run Locally
-- get go and set up gopath ( should be done since you pulled this repo into the correct spot I hope)
-- get docker
-- get npm/yarn
-- build frontend:
+- install docker
+- install npm
+- install yarn
+- install psql
+
+## Build Frontend
 ```bash
 
 yarn --cwd ./client install
 yarn --cwd ./client run build  
+```
+
+## Postgress
+- 
+```
+psql -h localhost -p 5432 -U postgres -W
+
+\l
+CREATE DATABSE texter;
+\c texter
+\td
+
 ```
 
 ## In Docker
