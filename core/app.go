@@ -4,8 +4,11 @@ import (
 	"context"
 	"log"
 	mathRand "math/rand"
+	"os"
+	"os/signal"
 	"sync"
 	"sync/atomic"
+	"syscall"
 	"time"
 
 	"golang.org/x/exp/rand"
@@ -113,4 +116,16 @@ func run(ctx context.Context, hookFns []hookFn) {
 		}(h)
 	}
 	wg.Wait()
+}
+
+// WaitExitSignal -- function to hold main go routine until os signal is caught
+func WaitExitSignal() os.Signal {
+	ch := make(chan os.Signal, 3)
+	signal.Notify(
+		ch,
+		syscall.SIGINT,
+		syscall.SIGQUIT,
+		syscall.SIGTERM,
+	)
+	return <-ch
 }

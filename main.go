@@ -37,19 +37,18 @@ func serveHTTP(ctx context.Context, handler http.Handler, address string) {
 		IdleTimeout:  60 * time.Second,
 		Handler:      handler,
 	}
-	if err := srv.ListenAndServe(); err != nil && !isServerClosed(err) {
-		log.Fatal("failed run server --  ListenAndServe")
-	}
-	// fmt.Print("Starting server in go routine")
-	// go func() {
-	// 	if err := srv.ListenAndServe(); err != nil && !isServerClosed(err) {
-	// 		log.Fatal("failed run server --  ListenAndServe")
-	// 	}
-	// }()
 
-	// if err := srv.Shutdown(ctx); err != nil {
-	// 	log.Fatal("failed to shutdown server --  srv.Shutdown")
-	// }
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && !isServerClosed(err) {
+			log.Fatal("failed run server --  ListenAndServe")
+		}
+	}()
+
+	log.Println(core.WaitExitSignal())
+
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Fatal("failed to shutdown server --  srv.Shutdown")
+	}
 }
 
 func isServerClosed(err error) bool {
@@ -58,5 +57,14 @@ func isServerClosed(err error) bool {
 
 // temporary function to validate testing framework works
 func testable(a int) int {
+
+	core.OnInit(func(ctx context.Context) {
+		log.Print("confirm init hooks run")
+
+	})
+	core.OnExit(func(ctx context.Context) {
+		log.Print("confirm exit hooks run")
+
+	})
 	return a
 }
