@@ -12,9 +12,11 @@ import (
 )
 
 var (
+	// WaitGroup -- waitgroup for core init and exit hooks running syncronously
 	WaitGroup sync.WaitGroup
-	ExitCh    = make(chan struct{})
-	exiting   uint32
+	// ExitCh -- channel for core exit hooks running syncronously
+	ExitCh  = make(chan struct{})
+	exiting uint32
 )
 
 // Exiting -- returns true in app is currently exiting

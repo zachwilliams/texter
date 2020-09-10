@@ -7,10 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	Router *gin.Engine
-	API    *gin.RouterGroup
-)
+// Router -- public pointer to http router (in this case gin engine)
+var Router *gin.Engine
+
+// API -- public pointer to http router group (api endpoints are attached to this group from /api/init.go)
+var API *gin.RouterGroup
 
 func init() {
 	Router = gin.Default()

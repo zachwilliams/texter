@@ -81,12 +81,12 @@ You will have to rebuild the front end to serve changes up in docker image
 ## Local Go Server Execution
 run tests:
 ```bash
-go test ./server/
+go test .
 ```
 
 run server locally
 ```bash
-go run server/main.go
+go run main.go
 ```
 
 call local server

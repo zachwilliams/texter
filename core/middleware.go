@@ -7,6 +7,7 @@ import (
 	"runtime"
 )
 
+// PanicHandler -- wrapper that adds a panic/recovery function to http handler
 type PanicHandler struct {
 	Next http.Handler
 }
