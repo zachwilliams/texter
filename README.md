@@ -32,12 +32,7 @@ CREATE DATABASE texter;
   - `\c texter` to connect to texter db
   - `\dt` to show all tables
 
-- if you want to run the server directly on your machine you will need to set local environment variables the app pulls db connection info from. NOTE: These values will be set as defaults in the docker file and will be pulled from github secrets for prod
-```
-export POSTGRES_USER=postgres
-export POSTGRES_PASSWORD=pwdtime123
-export POSTGRES_ADDR=localhost:5432
-```
+
 ### DB migrations 
 - more information: https://github.com/go-pg/migrations
 - init migration (only run once)
@@ -55,12 +50,19 @@ Some other basic postgres command:
 - `\l` to show all databases
 - `\c texter` to connect to texter db
 - `\dt` to show all tables
+- `\q` to disconnect
 
 ## Run App In Docker
-- build container (go code compiled in container) by running: 
+- you will need to get the ipaddress of  the postgres container (localhost wont work for container to container)
 ```bash
-docker build . -t texter-image
+docker inspect <postgres-container-id> | grep "IPAddress"
 ```
+- build container pass address of postgres container (usually 172.17t.0.2) with running: 
+```bash
+docker build . -t texter-image --build-arg DB_ADDR=<ip-from-above>:5432
+```
+
+> NOTE: since we use the same dockerfile for prod, this will run without debugging and on port 80
 - run container
 ```bash
 docker run -it -p 5000:80 texter-image
@@ -79,6 +81,15 @@ yarn start
 You will have to rebuild the front end to serve changes up in docker image
 
 ## Local Go Server Execution
+If you want to run the server directly on your machine you will need to set
+local environment variables the app pulls db connection info from. 
+```bash
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=pwdtime123
+export POSTGRES_ADDR=localhost:5432
+```
+NOTE: These values will be set as defaults in the docker file and will be pulled from github secrets for prod
+
 run tests:
 ```bash
 go test .
@@ -88,10 +99,14 @@ run server locally
 ```bash
 go run main.go
 ```
+you can change the port it is running on by setting a command line arg
+```bash
+go run main.go localhost:80
+```
 
 call local server
 ```bash
-curl localhost:5000/api
+curl localhost:5000/api/healthcheck
 ```
 
 
