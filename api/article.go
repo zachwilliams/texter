@@ -7,7 +7,7 @@ import (
 	"github.com/zachwilliams/texter/core"
 )
 
-//Article -- object to
+//Article -- object to hold/parse data from Article table and article response json
 type Article struct {
 	tableName struct{} `pg:"articles,alias:a"`
 
@@ -36,12 +36,4 @@ func listArticles(c *gin.Context) {
 		"articles":      articles,
 		"articlesCount": len(articles),
 	})
-}
-
-func createArticles(c *gin.Context) {
-	healthCheck(c)
-}
-
-func deleteArticles(c *gin.Context) {
-	healthCheck(c)
 }
