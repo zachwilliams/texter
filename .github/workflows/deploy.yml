@@ -39,7 +39,10 @@ jobs:
                 ECR_REPOSITORY: texter
                 IMAGE_TAG: ${{ github.sha }}
               run: |
-                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
+                  --build-arg DB_USER= ${{ secrets.POSTGRES_USER }} \
+                  --build-arg DB_PWD= ${{ secrets.POSTGRES_PASSWORD }} \
+                  --build-arg DB_ADDR= ${{ secrets.POSTGRES_ADDR }} 
                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
                 echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
@@ -58,3 +61,23 @@ jobs:
                 service: texter-container-service
                 cluster: texter-cluster-prod
                 wait-for-service-stability: true
+
+    db-migrations:
+      runs-on: ubuntu-latest
+        steps: 
+            - name: Checkout
+              uses: actions/checkout@v2
+            
+            - name: Run pg-go Migrations initalization (1 time only)
+              run: go run scripts/migrate_db/migrate_db.go init
+              env:
+                POSTGRES_USER: ${{ secrets.POSTGRES_USER }
+                POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }
+                POSTGRES_ADDR: ${{ secrets.POSTGRES_ADDR }
+
+            - name: Run pg-go Migrations
+              run: go run scripts/migrate_db/migrate_db.go up
+              env:
+                POSTGRES_USER: ${{ secrets.POSTGRES_USER }
+                POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }
+                POSTGRES_ADDR: ${{ secrets.POSTGRES_ADDR }
