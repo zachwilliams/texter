@@ -41,9 +41,9 @@ jobs:
             IMAGE_TAG: ${{ github.sha }}
           run: |
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
-              --build-arg DB_USER= ${{ secrets.POSTGRES_USER }} \
-              --build-arg DB_PWD= ${{ secrets.POSTGRES_PASSWORD }} \
-              --build-arg DB_ADDR= ${{ secrets.POSTGRES_ADDR }} 
+              --build-arg DB_USER=${{ secrets.POSTGRES_USER }} \
+              --build-arg DB_PWD=${{ secrets.POSTGRES_PASSWORD }} \
+              --build-arg DB_ADDR=${{ secrets.POSTGRES_ADDR }} 
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
             echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
