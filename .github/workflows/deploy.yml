@@ -26,12 +26,12 @@ jobs:
         - name: Frontend Deps (Yarn Install)
           uses: borales/actions-yarn@v2.0.0
           with:
-            cmd: --cwd ./client install 
+            cmd: --cwd ./frontend install 
 
         - name: Frontend Build
           uses: borales/actions-yarn@v2.0.0
           with:
-            cmd: --cwd ./client run build
+            cmd: --cwd ./frontend run build
         
         - name: Build, tag, and push image to ECR
           id: build-image
@@ -62,23 +62,3 @@ jobs:
             service: texter-container-service
             cluster: texter-cluster-prod
             wait-for-service-stability: true
-
-  db-migrations:
-    runs-on: ubuntu-latest
-    steps: 
-        - name: Checkout
-          uses: actions/checkout@v2
-        
-        - name: Run pg-go Migrations initalization (1 time only)
-          run: go run scripts/migrate_db/migrate_db.go init
-          env:
-            POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-            POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-            POSTGRES_ADDR: ${{ secrets.POSTGRES_ADDR }}
-
-        - name: Run pg-go Migrations
-          run: go run scripts/migrate_db/migrate_db.go up
-          env:
-            POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-            POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-            POSTGRES_ADDR: ${{ secrets.POSTGRES_ADDR }}
