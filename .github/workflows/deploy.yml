@@ -1,8 +1,7 @@
 # github action to build docker container and deploy to ECS 
 
-  # push:
 on:
-  pull_request:
+  push:
       branches: [ master ]
   
 jobs:
