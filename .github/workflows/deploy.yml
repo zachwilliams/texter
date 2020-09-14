@@ -68,8 +68,15 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             
+            - name: Run pg-go Migrations initalization (1 time only)
+              run: go run scripts/migrate_db/migrate_db.go init
+              env:
+                POSTGRES_USER: ${{ secrets.POSTGRES_USER }
+                POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }
+                POSTGRES_ADDR: ${{ secrets.POSTGRES_ADDR }
+
             - name: Run pg-go Migrations
-              run: go run scripts/migrate_db/migrate_db.go
+              run: go run scripts/migrate_db/migrate_db.go up
               env:
                 POSTGRES_USER: ${{ secrets.POSTGRES_USER }
                 POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }
