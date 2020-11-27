@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/zachwilliams/texter/core"
+	"github.com/zachwilliams/saasjaz/core"
 )
 
 //Article -- object to hold/parse data from Article table and article response json

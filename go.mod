@@ -1,4 +1,4 @@
-module github.com/zachwilliams/texter
+module github.com/zachwilliams/saasjaz
 
 go 1.14
 

@@ -36,7 +36,7 @@ class App extends Component {
         <Box fill>
           <AppBar>
             <Heading level="3" margin="none">
-              Texter
+              saasjaz
             </Heading>
             <Button icon={<Notification />} onClick={() => {}} />
           </AppBar>

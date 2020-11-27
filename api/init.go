@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zachwilliams/texter/core"
+	"github.com/zachwilliams/saasjaz/core"
 )
 
 func init() {

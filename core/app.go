@@ -41,7 +41,7 @@ func Init(ctx context.Context) context.Context {
 	rand.Seed(uint64(time.Now().UnixNano()))
 	mathRand.Seed(time.Now().UnixNano())
 
-	BuildConfig("texter")
+	BuildConfig("saasjaz")
 	callInitHooks(ctx)
 
 	Ctx = ctx

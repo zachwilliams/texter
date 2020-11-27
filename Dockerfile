@@ -11,7 +11,7 @@ ENV POSTGRES_USER=$DB_USER POSTGRES_ADDR=$DB_ADDR POSTGRES_PASSWORD=$DB_PWD
 ENV GIN_MODE=release 
 ENV PORT=80
 
-WORKDIR /github.com/zachwilliams/texter
+WORKDIR /github.com/zachwilliams/saasjaz
 
 COPY main.go .
 
@@ -25,7 +25,7 @@ COPY go.sum .
 RUN go mod download
 
 # get frontend code
-COPY frontend/build /github.com/zachwilliams/texter/frontend/build
+COPY frontend/build /github.com/zachwilliams/saasjaz/frontend/build
 
 RUN go build main.go 
 
