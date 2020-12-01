@@ -79,7 +79,7 @@ docker run -it -p 5000:80 saasjaz-image
 ## Frontend dev
 Interactive real time front end dev environment using createreactapp built-in node server
 ```bash
-cd client 
+cd frontend 
 yarn start
 ```
 - point broswer to localhost:3000
