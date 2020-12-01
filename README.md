@@ -9,27 +9,34 @@
 
 ## Build Frontend
 ```bash
-yarn --cwd ./client install
-yarn --cwd ./client run build  
+yarn --cwd ./frontend install
+yarn --cwd ./frontend run build  
+```
+
+## Set up local environment variables
+```bash
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=pwdtime123
+export POSTGRES_ADDR=localhost:5432
 ```
 
 ## Set up DB
 - set up postgres docker container for local use (should download image fist time)
 ```bash
-docker run --name texter_db -p 5432:5432 -e POSTGRES_PASSWORD=pwdtime123 -d postgres
+docker run --name saasjaz_db -p 5432:5432 -e POSTGRES_PASSWORD=pwdtime123 -d postgres
 ```
-- test local connection and build initial db (enter above password when prompted) and create new database texter
+- test local connection and build initial db (enter above password when prompted) and create new database saasjaz
 ```bash
 psql -h localhost -p 5432 -U postgres -W
 ```
 
-- create the texter database (name currently hard coded)
+- create the saasjaz database (name currently hard coded)
 ```
-CREATE DATABASE texter;
+CREATE DATABASE saasjaz;
 ```
 - Some other basic postgres command:
   - `\l` to show all databases
-  - `\c texter` to connect to texter db
+  - `\c saasjaz` to connect to saasjaz db
   - `\dt` to show all tables
 
 
@@ -48,7 +55,7 @@ To create a new migration create a new sql file in scripts/migrate_db
 
 Some other basic postgres command:
 - `\l` to show all databases
-- `\c texter` to connect to texter db
+- `\c saasjaz` to connect to saasjaz db
 - `\dt` to show all tables
 - `\q` to disconnect
 
@@ -59,20 +66,20 @@ docker inspect <postgres-container-id> | grep "IPAddress"
 ```
 - build container pass address of postgres container (usually 172.17t.0.2) with running: 
 ```bash
-docker build . -t texter-image --build-arg DB_ADDR=<ip-from-above>:5432
+docker build . -t saasjaz-image --build-arg DB_ADDR=<ip-from-above>:5432
 ```
 
 > NOTE: since we use the same dockerfile for prod, this will run without debugging and on port 80
 - run container
 ```bash
-docker run -it -p 5000:80 texter-image
+docker run -it -p 5000:80 saasjaz-image
 ```
 - point browser to `localhost:5000`
 
 ## Frontend dev
 Interactive real time front end dev environment using createreactapp built-in node server
 ```bash
-cd client 
+cd frontend 
 yarn start
 ```
 - point broswer to localhost:3000

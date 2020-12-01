@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	_ "github.com/zachwilliams/texter/api"
-	"github.com/zachwilliams/texter/core"
+	_ "github.com/zachwilliams/saasjaz/api"
+	"github.com/zachwilliams/saasjaz/core"
 )
 
 func main() {

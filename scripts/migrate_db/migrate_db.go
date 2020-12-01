@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/go-pg/migrations/v8"
-	"github.com/zachwilliams/texter/core"
+	"github.com/zachwilliams/saasjaz/core"
 )
 
 const stmtTimeout = 5 * time.Minute

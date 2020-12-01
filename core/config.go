@@ -62,7 +62,7 @@ func loadDbConfig() *Postgres {
 	pgConfig.Password = os.Getenv("POSTGRES_PASSWORD")
 	pgConfig.Addr = os.Getenv("POSTGRES_ADDR")
 
-	pgConfig.Database = "texter"
+	pgConfig.Database = "saasjaz"
 
 	// TODO read environment variables for Postgres and set default values
 
