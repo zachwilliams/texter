@@ -9,8 +9,15 @@
 
 ## Build Frontend
 ```bash
-yarn --cwd ./client install
-yarn --cwd ./client run build  
+yarn --cwd ./frontend install
+yarn --cwd ./frontend run build  
+```
+
+## Set up local environment variables
+```bash
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=pwdtime123
+export POSTGRES_ADDR=localhost:5432
 ```
 
 ## Set up DB
