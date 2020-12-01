@@ -1,65 +1,16 @@
-import React, { Component } from "react";
-import { Box, Button, Heading, Grommet } from "grommet";
-import { Notification } from "grommet-icons";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import "semantic-ui-css/semantic.min.css";
 
-const AppBar = (props) => (
-  <Box
-    tag="header"
-    direction="row"
-    align="center"
-    justify="between"
-    background="brand"
-    pad={{ left: "medium", right: "small", vertical: "small" }}
-    elevation="medium"
-    style={{ zIndex: "1" }}
-    {...props}
-  />
+const App = () => (
+  <Router>
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/" component={Dashboard} />
+    </Switch>
+  </Router>
 );
-
-const theme = {
-  global: {
-    colors: {
-      brand: "#02b525",
-    },
-    font: {
-      family: "Roboto",
-      size: "18px",
-      height: "20px",
-    },
-  },
-};
-
-class App extends Component {
-  render() {
-    return (
-      <Grommet theme={theme}>
-        <Box fill>
-          <AppBar>
-            <Heading level="3" margin="none">
-              saasjaz
-            </Heading>
-            <Button icon={<Notification />} onClick={() => {}} />
-          </AppBar>
-          <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
-            <Box
-              width="medium"
-              background="light-2"
-              elevation="small"
-              align="center"
-              justify="left"
-            >
-              sidebar<br />
-              sidebar<br />
-              sidebar<br />
-              sidebar<br />
-            </Box>
-            <Box flex align="center" justify="center">
-            </Box>
-          </Box>
-        </Box>
-      </Grommet>
-    );
-  }
-}
 
 export default App;
