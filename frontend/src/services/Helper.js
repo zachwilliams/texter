@@ -1,5 +1,9 @@
 import store from "store";
 
-const isLoggedIn = () => !!store.get("loggedIn");
+export function isLoggedIn() {
+  return !!store.get("loggedIn");
+}
 
-export default isLoggedIn;
+export function openGit() {
+  window.open("https://github.com/zachwilliams/saasjaz", "_blank");
+}

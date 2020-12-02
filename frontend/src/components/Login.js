@@ -1,9 +1,19 @@
 import React from "react";
 import store from "store";
-import { Form, Message, Grid, Header, Segment } from "semantic-ui-react";
-import { Redirect } from "react-router-dom";
+import {
+  Form,
+  Button,
+  Message,
+  Grid,
+  Header,
+  Segment,
+  GridRow,
+  GridColumn,
+  Icon,
+} from "semantic-ui-react";
+import { Redirect, Link } from "react-router-dom";
 
-import isLoggedIn from "../services/Helper";
+import { isLoggedIn } from "../services/Helper";
 
 class Login extends React.Component {
   constructor(props) {
@@ -20,7 +30,7 @@ class Login extends React.Component {
   }
 
   onSubmit(e) {
-    // TODO here we will call auth code, for now just check for singe hard coded PWD
+    // TODO here we will call auth code, for now just check for single hard coded PWD
     e.preventDefault();
 
     const { username, password } = this.state;
@@ -38,7 +48,6 @@ class Login extends React.Component {
   handleChange(e, { name, value }) {
     this.setState({ [name]: value });
   }
-
   render() {
     const { error } = this.state;
 
@@ -78,9 +87,27 @@ class Login extends React.Component {
                   name="password"
                   onChange={this.handleChange}
                 />
-                <Form.Button type="submit" color="black" fluid size="large">
-                  Login
-                </Form.Button>
+                <Grid columns={2} stackable textAlign="center">
+                  <GridRow>
+                    <GridColumn>
+                      <Form.Button
+                        type="submit"
+                        color="black"
+                        fluid
+                        size="large"
+                      >
+                        Login
+                      </Form.Button>
+                    </GridColumn>
+                    <GridColumn>
+                      <Link to="/">
+                        <Button color="black" fluid size="large">
+                          <Icon name="home" /> Home
+                        </Button>
+                      </Link>
+                    </GridColumn>
+                  </GridRow>
+                </Grid>
               </Segment>
             </Form>
             <Message>

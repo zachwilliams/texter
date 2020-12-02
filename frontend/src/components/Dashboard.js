@@ -3,7 +3,7 @@ import store from "store";
 import { Sidebar, Menu, Icon, Container, Tab } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 
-import isLoggedIn from "../services/Helper";
+import { isLoggedIn } from "../services/Helper";
 
 const panes = [
   {
@@ -25,6 +25,10 @@ const handleLogout = (history) => () => {
   history.push("/login");
 };
 
+const handleHome = (history) => () => {
+  history.push("/");
+};
+
 const Dashboard = ({ history }) => {
   if (!isLoggedIn()) {
     return <Redirect to="/login" />;
@@ -33,9 +37,9 @@ const Dashboard = ({ history }) => {
   return (
     <Container>
       <Sidebar as={Menu} inverted visible vertical width="thin" icon="labeled">
-        <Menu.Item name="users">
-          <Icon name="users" />
-          Users
+        <Menu.Item name="home" onClick={handleHome(history)}>
+          <Icon name="home" />
+          Home
         </Menu.Item>
         <Menu.Item name="logout" onClick={handleLogout(history)}>
           <Icon name="power" />
