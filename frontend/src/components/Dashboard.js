@@ -3,7 +3,7 @@ import store from "store";
 import { Sidebar, Menu, Icon, Container, Tab } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 
-import isLoggedIn from "../Helpers";
+import isLoggedIn from "../services/Helper";
 
 const panes = [
   {

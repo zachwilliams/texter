@@ -1,6 +1,9 @@
 import React from "react";
 import store from "store";
-import { Form, Message, Grid, Header } from "semantic-ui-react";
+import { Form, Message, Grid, Header, Segment } from "semantic-ui-react";
+import { Redirect } from "react-router-dom";
+
+import isLoggedIn from "../services/Helper";
 
 class Login extends React.Component {
   constructor(props) {
@@ -30,7 +33,6 @@ class Login extends React.Component {
 
     store.set("loggedIn", true);
     history.push("/dashboard");
-    console.log("WE GOT THE LOGIN CORRECT");
   }
 
   handleChange(e, { name, value }) {
@@ -38,43 +40,55 @@ class Login extends React.Component {
   }
 
   render() {
-    const loginFormStyle = {
-      marginTop: "200px",
-    };
-
     const { error } = this.state;
 
-    return (
-      <Grid>
-        <title>SAASJAZ | LogIn</title>
+    if (isLoggedIn()) {
+      return <Redirect to="/dashboard" />;
+    }
 
-        <Grid.Column width={6} />
-        <Grid.Column width={4}>
-          <Form style={loginFormStyle} error={error} onSubmit={this.onSubmit}>
-            <Header as="h1">Log In</Header>
-            {error && (
-              <Message
-                error={error}
-                content="That username/password is incorrect. Try again!"
-              />
-            )}
-            <Form.Input
-              inline
-              placeholder="Username"
-              name="username"
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              inline
-              placeholder="Password"
-              type="password"
-              name="password"
-              onChange={this.handleChange}
-            />
-            <Form.Button type="submit">Log In</Form.Button>
-          </Form>
-        </Grid.Column>
-      </Grid>
+    return (
+      <div style={{ backgroundColor: "lightgrey" }}>
+        <Grid
+          textAlign="center"
+          style={{ height: "100vh" }}
+          verticalAlign="middle"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as="h2" color="black" textAlign="center">
+              Log-in to your account
+            </Header>
+            <Form size="large" error={error} onSubmit={this.onSubmit}>
+              <Segment stacked>
+                {error && (
+                  <Message
+                    error={error}
+                    content="That username/password is incorrect. Try again!"
+                  />
+                )}
+                <Form.Input
+                  inline
+                  placeholder="Username"
+                  name="username"
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  inline
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  onChange={this.handleChange}
+                />
+                <Form.Button type="submit" color="black" fluid size="large">
+                  Login
+                </Form.Button>
+              </Segment>
+            </Form>
+            <Message>
+              New to us? <a href="https://www.google.com">Sign Up</a>
+            </Message>
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }
