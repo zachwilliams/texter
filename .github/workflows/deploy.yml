@@ -1,63 +1,63 @@
-# github action to build docker container and deploy to ECS 
+# github action to build docker container and deploy to ECS
 
 on:
   push:
-      branches: [ master ]
-  
+    branches: [master]
+
 jobs:
   ecs-deploy:
     runs-on: ubuntu-latest
-    steps: 
-        - name: Checkout
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-        - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: us-west-1
-    
-        - name: Login to Amazon ECR
-          id: login-ecr
-          uses: aws-actions/amazon-ecr-login@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-1
 
-        - name: Frontend Deps (Yarn Install)
-          uses: borales/actions-yarn@v2.0.0
-          with:
-            cmd: --cwd ./frontend install 
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-        - name: Frontend Build
-          uses: borales/actions-yarn@v2.0.0
-          with:
-            cmd: --cwd ./frontend run build
-        
-        - name: Build, tag, and push image to ECR
-          id: build-image
-          env:
-            ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-            ECR_REPOSITORY: saasjaz
-            IMAGE_TAG: ${{ github.sha }}
-          run: |
-            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
-              --build-arg DB_USER=${{ secrets.POSTGRES_USER }} \
-              --build-arg DB_PWD=${{ secrets.POSTGRES_PASSWORD }} \
-              --build-arg DB_ADDR=${{ secrets.POSTGRES_ADDR }} 
-            docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-            echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      - name: Frontend Deps (Yarn Install)
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: --cwd ./frontend install
 
-        - name: Update ECS task definition
-          id: task-def
-          uses: aws-actions/amazon-ecs-render-task-definition@v1
-          with:
-            task-definition: task-definition.json
-            container-name: saasjaz-container
-            image: ${{ steps.build-image.outputs.image }}
-        
-        - name: Deploy Amazon ECS task definition
-          uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-          with:
-            task-definition: ${{ steps.task-def.outputs.task-definition }}
-            service: saasjaz-container-service
-            cluster: saasjaz-cluster-prod
-            wait-for-service-stability: true
+      - name: Frontend Build
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: --cwd ./frontend run build
+
+      - name: Build, tag, and push image to ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: texter
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
+            --build-arg DB_USER=${{ secrets.POSTGRES_USER }} \
+            --build-arg DB_PWD=${{ secrets.POSTGRES_PASSWORD }} \
+            --build-arg DB_ADDR=${{ secrets.POSTGRES_ADDR }} 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      - name: Update ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: texter-container
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: texter-container-service
+          cluster: texter-cluster-prod
+          wait-for-service-stability: true
