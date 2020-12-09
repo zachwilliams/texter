@@ -175,13 +175,16 @@ infrstructure used by the saasjaz application in AWS.
 - create VPC (VPC, use 10.0.0.0/16)
 - create subnets(VPC, use 10.0.0.0/24 and 10.0.1.0/24)
 - create internet gateway and attach (VPC)
+- create route table
 
 - create database (RDS)
+- create security groups (ECS)
 
-- create fargate cluster (ECS)
 - create image repository (ECS)
+- create fargate cluster (ECS)
 - create task definition and save json in project (ECS, create container in flow)
 - create load balancer and target group (EC2, inside new VPC) (can do inline in service creation step)
 - create service (ECS, in new cluster)
 
+- point A record to ALB (Route53)
 - set name (find and replace all saasjaz with new project name)
