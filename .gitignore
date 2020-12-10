@@ -2,3 +2,4 @@
 .pid
 .DS_Store
 frontend/.eslintcache
+launch.json

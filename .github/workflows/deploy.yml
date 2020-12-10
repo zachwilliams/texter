@@ -5,6 +5,28 @@ on:
     branches: [master]
 
 jobs:
+  migraton:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: "cd ssasjaz && git pull"
+          host: ${{ secrets.DB_MIGRATION_HOST }}
+          username: ubuntu
+          privateKey: ${{ secrets.DB_MIGRATION_PRIVATE_KEY }}
+
+      - name: Run Migration
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: "export POSTGRES_ADDR=${{ secrets.POSTGRES_ADDR  }} &&
+            export POSTGRES_USER${{ secrets.POSTGRES_USER  }} &&
+            export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} &&
+            go run saasjaz/scripts/migrate_db/migrate_db.go up  "
+          host: ${{ secrets.DB_MIGRATION_HOST }}
+          username: ubuntu
+          privateKey: ${{ secrets.DB_MIGRATION_PRIVATE_KEY}}
+
   ecs-deploy:
     runs-on: ubuntu-latest
     steps:

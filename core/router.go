@@ -16,7 +16,7 @@ var API *gin.RouterGroup
 func init() {
 	Router = gin.Default()
 
-	Router.Use(static.Serve("/", static.LocalFile("./frontend/build", true)))
+	Router.Use(static.Serve("/*", static.LocalFile("./frontend/build", true)))
 
 	Router.Use(corsMiddleware)
 	Router.Use(errorMiddleware)

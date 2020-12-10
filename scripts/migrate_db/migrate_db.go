@@ -22,7 +22,7 @@ const usageText = `This program runs command on the db. Supported commands are:
   - version - prints current db version.
   - set_version [version] - sets db version without running migrations.
 Usage:
-  go run main.go <command> [args]
+  go run migrate_db.go <command> [args]
 `
 
 func main() {
@@ -34,13 +34,11 @@ func main() {
 		usage()
 	}
 
-	core.BuildConfig("migrate_db")
+	ctx := core.Init(context.Background())
+	defer core.Exit(ctx)
 
 	core.CoreConfig.PGMain.ReadTimeout = stmtTimeout
 	core.CoreConfig.PGMain.PoolTimeout = stmtTimeout
-
-	ctx := core.Init(context.Background())
-	defer core.Exit(ctx)
 
 	oldVersion, newVersion, err := migrations.Run(core.PGMain(), args...)
 	if err != nil {

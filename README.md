@@ -13,14 +13,6 @@ yarn --cwd ./frontend install
 yarn --cwd ./frontend run build
 ```
 
-## Set up local environment variables
-
-```bash
-export POSTGRES_USER=postgres
-export POSTGRES_PASSWORD=pwdtime123
-export POSTGRES_ADDR=localhost:5432
-```
-
 ## Set up DB
 
 - set up postgres docker container for local use (should download image fist time)
@@ -40,11 +32,6 @@ psql -h localhost -p 5432 -U postgres -W
 ```
 CREATE DATABASE saasjaz;
 ```
-
-- Some other basic postgres command:
-  - `\l` to show all databases
-  - `\c saasjaz` to connect to saasjaz db
-  - `\dt` to show all tables
 
 ### DB migrations
 
@@ -186,5 +173,13 @@ infrstructure used by the saasjaz application in AWS.
 - create load balancer and target group (EC2, inside new VPC) (can do inline in service creation step)
 - create service (ECS, in new cluster)
 
+- create instance for db migrations (EC2)
+
 - point A record to ALB (Route53)
 - set name (find and replace all saasjaz with new project name)
+
+## db migrations in prod
+
+- for security must be done from machine inside AWS VPC
+- set up ec2 instance with code from git
+- migrate job in `deploy.yml` ssh into ec2 machine pull most recent code and run migrations
